@@ -1,0 +1,18 @@
+server:
+  port: 6548
+spring:
+  datasource:
+    password:
+    username:
+    url:
+logging:
+  level:
+    root: debug
+
+---
+spring:
+  profiles:
+    active: prod
+logging:
+  level:
+    root: off
