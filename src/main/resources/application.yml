@@ -1,18 +1,24 @@
 server:
   port: 6548
 spring:
+  flyway:
+    user: temic
+    password: 505606
   datasource:
-    password:
-    username:
-    url:
+    password: 505606
+    username: temic
+    url: jdbc:mysql://localhost:3306/main
+  jpa:
+    hibernate:
+      ddl-auto: validate
 logging:
   level:
-    root: debug
+    root: info
 
----
-spring:
-  profiles:
-    active: prod
-logging:
-  level:
-    root: off
+#---
+#spring:
+#  profiles:
+#    active: prod
+#logging:
+#  level:
+#    root: off
