@@ -66,7 +66,6 @@ public class StudentController {
             return ResponseEntity.notFound().build();
         }
         existingStudent.setEmail(updateStudent.getEmail());
-        existingStudent.setLogin(updateStudent.getLogin());
         existingStudent.setPassword(updateStudent.getPassword());
         existingStudent.setSpecialty(updateStudent.getSpecialty());
         return ResponseEntity.ok(existingStudent);
