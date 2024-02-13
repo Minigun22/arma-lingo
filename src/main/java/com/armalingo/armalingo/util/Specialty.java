@@ -1,6 +1,6 @@
 package com.armalingo.armalingo.util;
 
-public enum Rank {
+public enum Specialty {
     ARMY,
     AIR_FORCE,
     NAVAL_FORCES,

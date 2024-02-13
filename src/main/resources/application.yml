@@ -4,6 +4,7 @@ spring:
   flyway:
     user: temic
     password: 505606
+    baseline-on-migrate: true
   datasource:
     password: 505606
     username: temic
