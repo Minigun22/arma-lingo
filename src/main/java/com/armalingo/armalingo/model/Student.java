@@ -1,5 +1,6 @@
 package com.armalingo.armalingo.model;
 
+import com.armalingo.armalingo.util.Roles;
 import com.armalingo.armalingo.util.Specialty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -28,4 +29,8 @@ public class Student {
 
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Roles role;
 }

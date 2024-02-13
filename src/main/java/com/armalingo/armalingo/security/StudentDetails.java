@@ -2,26 +2,28 @@ package com.armalingo.armalingo.security;
 
 import com.armalingo.armalingo.model.Student;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class StudentDetails implements UserDetails {
 
     private Student student;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority(student.getRole().toString()));
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return student.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return student.getLogin();
     }
 
     @Override
