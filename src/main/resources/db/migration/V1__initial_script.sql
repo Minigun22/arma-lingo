@@ -4,5 +4,6 @@ CREATE TABLE students (
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE ,
     phone_number VARCHAR(255) NOT NULL UNIQUE ,
-    specialty VARCHAR(50) NOT NULL
+    specialty VARCHAR(50) NOT NULL,
+    role VARCHAR(50)
 );
