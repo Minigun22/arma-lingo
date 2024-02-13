@@ -2,12 +2,12 @@ server:
   port: 6548
 spring:
   flyway:
-    user: temic
-    password: 505606
+    user: Jokail
+    password: 12345678
     baseline-on-migrate: true
   datasource:
-    password: 505606
-    username: temic
+    password: 12345678
+    username: Jokail
     url: jdbc:mysql://localhost:3306/main
   jpa:
     hibernate:
