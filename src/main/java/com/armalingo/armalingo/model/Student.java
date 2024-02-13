@@ -30,7 +30,4 @@ public class Student {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")
-    private Roles role;
 }
