@@ -23,7 +23,7 @@ public class StudentDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return student.getLogin();
+        return student.getEmail();
     }
 
     @Override

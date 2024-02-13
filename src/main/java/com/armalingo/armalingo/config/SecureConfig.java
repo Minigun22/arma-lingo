@@ -30,7 +30,7 @@ public class SecureConfig {
     public CsrfTokenRepository csrfTokenRepository() {
         HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
         repository.setHeaderName("X-CSRF-TOKEN");
-        return repository;
+        return repository;  
     }
 
 }
