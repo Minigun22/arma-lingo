@@ -4,6 +4,7 @@ import com.armalingo.armalingo.model.Student;
 import com.armalingo.armalingo.repository.StudentRepository;
 import com.armalingo.armalingo.util.Roles;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,27 @@ public class StudentController {
         this.studentRepository = studentRepository;
     }
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getUserById(@PathVariable("id") Long id){
+        Student student;
+        try {
+            student = studentRepository.getReferenceById(id);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(student);
+    }
+
     @PostMapping("/registration")
-    public ResponseEntity<Student> registerUser(@RequestBody Student student){
+    public ResponseEntity<Student> registerUser(HttpServletRequest request,
+                                                @RequestBody Student student,
+                                                @RequestHeader("X-CSRF-TOKEN") String csrfToken){
+        String sessionCsrfToken = (String) request.getSession().getAttribute("CSRFToken");
+        if (!csrfToken.equals(sessionCsrfToken)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         student.setRole(Roles.ROLE_USER);
         Student saveStudent = studentRepository.save(student);
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -36,15 +56,20 @@ public class StudentController {
         return new ResponseEntity<>(saveStudent, httpHeaders, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Student> getUserById(@PathVariable("id") Long id){
-        Student student;
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable("id") Long id,
+                                                 @RequestBody Student updateStudent){
+        Student existingStudent;
         try {
-            student = studentRepository.getReferenceById(id);
+            existingStudent = studentRepository.getReferenceById(id);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(student);
+        existingStudent.setEmail(updateStudent.getEmail());
+        existingStudent.setLogin(updateStudent.getLogin());
+        existingStudent.setPassword(updateStudent.getPassword());
+        existingStudent.setSpecialty(updateStudent.getSpecialty());
+        return ResponseEntity.ok(existingStudent);
     }
 
 }
