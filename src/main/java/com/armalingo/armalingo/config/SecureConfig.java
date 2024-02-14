@@ -18,20 +18,24 @@ public class SecureConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
        return http
-               .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer
-                       .csrfTokenRepository(csrfTokenRepository()))
+               .csrf(Customizer.withDefaults())
+               .authorizeHttpRequests((requests) -> requests
+                       .requestMatchers("/","/main","/error","/registration").permitAll()
+                       .anyRequest().hasAnyRole("USER","ADMIN")
+               )
+//               .formLogin((form) -> form
+//                       .defaultSuccessUrl("/myaccount")
+//                       .permitAll()
+//               )
+               .logout((logout) -> logout
+                       .logoutSuccessUrl("/main")
+               )
+
                .build();
     }
     @Bean
     public PasswordEncoder getPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
-    @Bean
-    public CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName("X-CSRF-TOKEN");
-        return repository;  
-    }
-
 }
 
