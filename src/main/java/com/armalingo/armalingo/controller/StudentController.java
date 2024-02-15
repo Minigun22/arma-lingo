@@ -37,14 +37,7 @@ public class StudentController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<Student> registerUser(HttpServletRequest request,
-                                                @RequestBody Student student,
-                                                @RequestHeader("X-CSRF-TOKEN") String csrfToken){
-        String sessionCsrfToken = (String) request.getSession().getAttribute("CSRFToken");
-        if (!csrfToken.equals(sessionCsrfToken)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-
+    public ResponseEntity<Student> registerUser(@RequestBody Student student){
         student.setRole(Roles.ROLE_USER);
         Student saveStudent = studentRepository.save(student);
         HttpHeaders httpHeaders = new HttpHeaders();
