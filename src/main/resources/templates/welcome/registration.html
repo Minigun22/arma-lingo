@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 500px;
+            height: 500px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #4CAF50;
+        }
+
+        .form-group {
+            margin-top: 30px;
+        }
+
+        label {
+            display: block;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 80%;
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M9.29)
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Register</h1>
+    <form th:action="@{/register}" method="post">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" th:field="*{email}" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" th:field="*{password}" required>
+        </div>
+        <div class="form-group">
+            <label for="militarySpecialty">Вибір військової спеціальності</label>
+            <select id="militarySpecialty" name="militarySpecialty" th:field="*{militarySpecialty}" required>
+                <option value="" disabled selected>Select an option</option>
+                <option th:each="option : ${options}" th:value="${option.value}" th:text="${option.text}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="languageLevel">Вибір рівня володіння мовою (від А1 до C2)</label>
+            <select id="languageLevel" name="languageLevel" th:field="*{languageLevel}" required>
+                <option value="" disabled selected>Select an option</option>
+                <option th:each="level : ${languageLevels}" th:value="${level}" th:text="${level}"></option>
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
