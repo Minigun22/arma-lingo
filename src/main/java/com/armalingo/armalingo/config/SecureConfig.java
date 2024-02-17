@@ -18,7 +18,7 @@ public class SecureConfig {
        return http
                .csrf(Customizer.withDefaults())
                .authorizeHttpRequests((requests) -> requests
-                       .requestMatchers("/","/main","/error","api/student/registration", "/api/student/1").permitAll()
+                       .requestMatchers("/","/main","/error","api/student/registration", "/api/student").permitAll()
                        .anyRequest().hasAnyRole("USER","ADMIN")
                )
 //               .formLogin((form) -> form
