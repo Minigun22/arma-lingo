@@ -1,13 +1,16 @@
 package com.armalingo.armalingo.security;
 
 import com.armalingo.armalingo.model.Student;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.Collections;
 
+@AllArgsConstructor
 public class StudentDetails implements UserDetails {
 
     private Student student;

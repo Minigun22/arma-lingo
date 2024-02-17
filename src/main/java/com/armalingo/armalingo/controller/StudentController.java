@@ -2,6 +2,7 @@ package com.armalingo.armalingo.controller;
 
 import com.armalingo.armalingo.model.Student;
 import com.armalingo.armalingo.repository.StudentRepository;
+import com.armalingo.armalingo.service.StudentService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,23 +15,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/student")
 public class StudentController {
 
-    private final StudentRepository studentRepository;
+    private final StudentService studentService;
 
     @Autowired
-    public StudentController(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
-    @GetMapping("/registration")
-    public String getRegistration(Model model) {
-        model.addAttribute("student", new Student());
-        return "registration";
-    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getUserById(@PathVariable("id") Long id) {
         try {
-            Student student = studentRepository.getReferenceById(id);
+            Student student = studentService.getReferenceById(id);
             return ResponseEntity.ok(student);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
@@ -44,7 +41,7 @@ public class StudentController {
                                                  @RequestBody Student updateStudent){
         Student existingStudent;
         try {
-            existingStudent = studentRepository.getReferenceById(id);
+            existingStudent = studentService.getReferenceById(id);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }

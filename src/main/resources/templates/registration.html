@@ -63,7 +63,7 @@
 <body>
 <div class="container">
     <h1>Реєстрація</h1>
-    <form th:action="@{/api/student/registration}" method="post" th:object="${student}">
+    <form th:action="@{/registration}" method="post" th:object="${student}">
         <div class="form-group">
             <label for="email">Емейл</label>
             <input type="email" id="email" name="email" required>
