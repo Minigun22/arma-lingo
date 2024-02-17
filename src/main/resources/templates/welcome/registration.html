@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <meta charset="UTF-8"/>
     <title>Registration Form</title>
     <style>
         body {
@@ -15,7 +16,7 @@
             height: 500px;
             background-color: white;
             border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             position: absolute;
             top: 50%;
             left: 50%;
@@ -56,33 +57,26 @@
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background-image: url("image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M9.29)
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Register</h1>
-    <form th:action="@{/register}" method="post">
+    <h1>Реєстрація</h1>
+    <form th:action="@{/api/student/registration}" method="post" th:object="${student}">
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" th:field="*{email}" required>
+            <label for="email">Емейл</label>
+            <input type="email" id="email" name="email" required>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" th:field="*{password}" required>
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password" required>
         </div>
         <div class="form-group">
-            <label for="militarySpecialty">Вибір військової спеціальності</label>
-            <select id="militarySpecialty" name="militarySpecialty" th:field="*{militarySpecialty}" required>
+            <label for="cefr_level">Вибір рівня володіння мовою</label>
+            <select id="cefr_level" name="cefr_level" required>
                 <option value="" disabled selected>Select an option</option>
-                <option th:each="option : ${options}" th:value="${option.value}" th:text="${option.text}"></option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="languageLevel">Вибір рівня володіння мовою (від А1 до C2)</label>
-            <select id="languageLevel" name="languageLevel" th:field="*{languageLevel}" required>
-                <option value="" disabled selected>Select an option</option>
-                <option th:each="level : ${languageLevels}" th:value="${level}" th:text="${level}"></option>
+                <option th:each="level : ${T(com.armalingo.armalingo.util.CEFRLevel).values()}" th:value="${level}" th:text="${level}"></option>
             </select>
         </div>
         <button type="submit">Submit</button>

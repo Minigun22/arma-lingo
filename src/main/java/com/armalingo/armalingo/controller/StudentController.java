@@ -10,11 +10,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
-@RequestMapping("/api/student")
+@RequestMapping("api/student")
 public class StudentController {
 
     private final StudentRepository studentRepository;
@@ -24,20 +25,26 @@ public class StudentController {
         this.studentRepository = studentRepository;
     }
 
+    @GetMapping("/registration")
+    public String getRegistration(Model model) {
+        model.addAttribute("student", new Student());
+        return "welcome/registration";
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getUserById(@PathVariable("id") Long id){
-        Student student;
+    public ResponseEntity<Object> getUserById(@PathVariable("id") Long id) {
         try {
-            student = studentRepository.getReferenceById(id);
+            Student student = studentRepository.getReferenceById(id);
+            return ResponseEntity.ok(student);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unexpected error occurred while fetching student");
         }
-        return ResponseEntity.ok(student);
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<Student> registerUser(@RequestBody Student student){
+    public ResponseEntity<Student> registerUser(@ModelAttribute("student") Student student){
         student.setRole(Roles.ROLE_USER);
         Student saveStudent = studentRepository.save(student);
         HttpHeaders httpHeaders = new HttpHeaders();
