@@ -73,13 +73,13 @@
             <input type="password" id="password" name="password" required>
         </div>
         <div class="form-group">
-            <label for="cefr_level">Вибір рівня володіння мовою</label>
-            <select id="cefr_level" name="cefr_level" required>
-                <option value="" disabled selected>Select an option</option>
-                <option th:each="level : ${T(com.armalingo.armalingo.util.CEFRLevel).values()}" th:value="${level}" th:text="${level}"></option>
+            <label for="specialty">Вибір спеціальності</label>
+            <select id="specialty" name="specialty" required>
+                <option value="" disabled selected>Спеціальність</option>
+                <option th:each="specialty : ${T(com.armalingo.armalingo.util.Specialty).values()}" th:value="${specialty}" th:text="${specialty}"></option>
             </select>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Зареєствуватись</button>
     </form>
 </div>
 </body>
